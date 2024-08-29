@@ -1,16 +1,16 @@
-import logging
+#!/usr/bin/env python3
+import re
 
 
-class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
+def filter_datum(fields: list, redaction: str,
+                 message: str, separator: str) -> str:
+    """
+    Returns the log message obfuscated
+    The function should use a regex to replace occurrences of
+    certain field values.
     """
 
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
-
-    def __init__(self):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-
-    def format(self, record: logging.LogRecord) -> str:
-        raise NotImplementedError
+    for field in fields:
+        message = re.sub(rf'{field}=.+?{separator}',
+                         f'{field}={redaction}{separator}', message)
+    return message
