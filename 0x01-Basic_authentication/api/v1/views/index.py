@@ -31,5 +31,4 @@ def unauthorized() -> str:
     Return:
       - abort(401)
     """
-    abort(401)
-
+    abort(401, description="Unauthorized")
