@@ -20,14 +20,22 @@ if AUTH_TYPE == "auth":
 @app.before_request
 def before_request():
     """_summary_
+
+    Returns:
+        _type_: _description_
     """
     if auth is None:
-        return
-    if auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):
-        if not auth.authorization_header(request):
-            abort(401)
-        if not auth.current_user(request):
-            abort(403)
+        pass
+    else:
+        excluded_list = ['/api/v1/status/',
+                         '/api/v1/unauthorized/', '/api/v1/forbidden/']
+
+        if auth.require_auth(request.path, excluded_list):
+            if auth.authorization_header(request) is None:
+                abort(401, description="Unauthorized")
+            if auth.current_user(request) is None:
+                abort(403, description='Forbidden')
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
