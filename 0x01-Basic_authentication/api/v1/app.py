@@ -17,6 +17,7 @@ if AUTH_TYPE == "auth":
     from api.v1.auth.auth import Auth
     auth = Auth()
 
+
 @app.before_request
 def before_request():
     """_summary_
