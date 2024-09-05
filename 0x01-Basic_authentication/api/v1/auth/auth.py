@@ -46,23 +46,23 @@ class Auth:
         """_summary_
 
         Args:
-                request ([type], optional): _description_. Defaults to None.
+                request (_type_, optional): _description_. Defaults to None.
 
         Returns:
                 str: _description_
         """
         if request is None:
             return None
+        # get header from the request
+        header = request.headers.get('Authorization')
 
-        if request is None or request.headers.get("Authorization") is None:
+        if header is None:
             return None
 
-        return request.headers.get("Authorization")
+        return header
 
-    def current_user(self) -> TypeVar('User'):
+    def current_user(self, request=None) -> TypeVar('User'):
         """_summary_
-
-        Returns:
-                TypeVar('User'): _description_
         """
+
         return None
