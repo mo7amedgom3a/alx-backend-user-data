@@ -29,8 +29,8 @@ class Auth:
             return False
         if check:
             path = path[:-1]
-        if path in excluded_paths:
-            return False
+            if path in excluded_paths:
+                return False
         return True
 
     def authorization_header(self) -> str:
